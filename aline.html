@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💖 Saint-Valentin 2026 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            /* Image de fond - remplace l'URL par ton image */
+            background-image: url('/thumb-1920-1191128.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* Overlay coloré par-dessus l'image */
+            position: relative;
+            cursor: default;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.4) 0%, rgba(192, 108, 132, 0.4) 50%, rgba(246, 114, 128, 0.4) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Animation de battement de cœur en arrière-plan */
+        .heart-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 300px;
+            opacity: 0.03;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            25% { transform: translate(-50%, -50%) scale(1.1); }
+            50% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* Pétales flottants */
+        .petal {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 182, 193, 0.7);
+            border-radius: 50% 0 50% 0;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+
+        /* Container principal */
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        /* Titre */
+        .title {
+            font-size: 3.5em;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Compte à rebours */
+        .timer {
+            font-size: 2em;
+            color: white;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            font-weight: bold;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Messages fun */
+        .fun-message {
+            position: fixed;
+            font-size: 1.5em;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            pointer-events: none;
+            animation: fadeOut 2s ease-out forwards;
+            z-index: 10;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+        }
+
+        /* Bouton principal */
+        .chase-button {
+            position: fixed;
+            padding: 25px 50px;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #ff6b9d, #c06c84);
+            border: 3px solid white;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 5;
+            animation: buttonGlow 2s ease-in-out infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes buttonGlow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+            }
+            50% {
+                box-shadow: 0 10px 40px rgba(255, 107, 157, 0.8), 0 0 30px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .chase-button:hover {
+            transform: scale(1.05);
+        }
+
+        .chase-button.catchable {
+            animation: buttonPulse 0.5s ease-in-out infinite;
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Écran de célébration */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .celebration.active {
+            display: flex;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .big-message {
+            font-size: 6em;
+            color: #ffffff;
+            text-shadow: 
+                0 0 40px rgba(255, 20, 147, 1),
+                0 0 60px rgba(255, 20, 147, 0.8),
+                0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: zoomInBeat 1s ease-out;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: bold;
+            z-index: 101;
+            position: relative;
+        }
+
+        @keyframes zoomInBeat {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .love-message {
+            font-size: 2em;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px 40px;
+            line-height: 1.6;
+            animation: fadeInUp 1.5s ease-out 0.5s both;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 101;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Canvas pour feux d'artifice */
+        #fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Confettis */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 99;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Cœurs qui suivent la souris */
+        .heart-cursor {
+            position: fixed;
+            pointer-events: none;
+            animation: heartFloat 1s ease-out forwards;
+            z-index: 20;
+            font-size: 20px;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0);
+            }
+        }
+
+        /* Responsive mobile */
+        @media (max-width: 768px) {
+            body {
+                background-size: cover;
+                background-attachment: fixed;
+            }
+            
+            .title {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            
+            .timer {
+                font-size: 1.1em;
+                margin-bottom: 30px;
+            }
+            
+            .chase-button {
+                padding: 18px 35px;
+                font-size: 1.2em;
+            }
+            
+            .big-message {
+                font-size: 2.8em;
+                margin-bottom: 30px;
+            }
+            
+            .love-message {
+                font-size: 1.2em;
+                padding: 25px 30px;
+                line-height: 1.5;
+            }
+            
+            .fun-message {
+                font-size: 1.2em;
+            }
+            
+            .heart-bg {
+                font-size: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.5em;
+            }
+            
+            .timer {
+                font-size: 1em;
+            }
+            
+            .chase-button {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+            
+            .big-message {
+                font-size: 2.2em;
+                margin-bottom: 25px;
+            }
+            
+            .love-message {
+                font-size: 1em;
+                padding: 20px 25px;
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cœur battant en arrière-plan -->
+    <div class="heart-bg">❤️</div>
+
+    <!-- Container principal -->
+    <div class="container">
+        <h1 class="title">💖 Joyeuse Saint-Valentin ! 💖 Mlle Aline</h1>
+        <div class="timer" id="timer">Attrape-moi dans <span id="countdown">45</span> secondes 😘</div>
+        <button class="chase-button" id="chaseButton">Clique ici 💖</button>
+    </div>
+
+    <!-- Écran de célébration -->
+    <div class="celebration" id="celebration">
+        <canvas id="fireworks"></canvas>
+        <div class="big-message">JE T'AIME -   ❤️   - I GOT U </div>
+        <div class="love-message">
+            Mon amour,
+
+Je veux que tu saches à quel point j’admire ton courage.</br>
+Pas seulement les grandes batailles que tu affrontes, mais aussi les petites</br> luttes silencieuses que personne ne voit. </br>Tu avances même quand c’est difficile, tu souris même </br>quand ton cœur est fatigué.
+
+Ta force n’est pas bruyante,</br> elle est douce, constante, vraie.
+Et c’est ça qui me touche le plus.</br>
+
+Tu es courageuse sans chercher à l’être.</br>
+Et moi, je suis infiniment fier d’aimer une femme comme toi.</br>
+
+Je t’aime, profondément. 💛
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bgMusic" loop>
+        <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
+    </audio>
+
+    <script>
+        // Configuration
+        const CHASE_DURATION = 45;
+        const DETECTION_RADIUS = 150;
+        const MOVE_SPEED = 0.15;
+        
+        let timeLeft = CHASE_DURATION;
+        let isChasing = true;
+        let buttonCaught = false;
+        
+        const button = document.getElementById('chaseButton');
+        const timer = document.getElementById('timer');
+        const countdown = document.getElementById('countdown');
+        const celebration = document.getElementById('celebration');
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        
+        // Messages fun
+        const funMessages = [
+            "Presque ! 😆",
+            "Tu es sûre ? 😏",
+            "Pas si vite ! 💨",
+            "Encore raté ! 🤭",
+            "Tu chauffes ! 🔥",
+            "Essaie encore ! 💪",
+            "Tu y es presque ! 😉",
+            "Courage ! 💕",
+            "Ah non ! 😂",
+            "Trop lente ! ⚡"
+        ];
+        
+        let messageIndex = 0;
+        
+        // Positionner le bouton au centre au départ
+        function centerButton() {
+            const x = window.innerWidth / 2 - button.offsetWidth / 2;
+            const y = window.innerHeight / 2 - button.offsetHeight / 2;
+            button.style.left = x + 'px';
+            button.style.top = y + 'px';
+            button.style.position = 'fixed'; // Force la position fixe
+        }
+        
+        centerButton();
+        
+        // Créer des pétales
+        function createPetals() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    petal.style.left = Math.random() * 100 + '%';
+                    petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                    petal.style.animationDelay = Math.random() * 5 + 's';
+                    document.body.appendChild(petal);
+                }, i * 200);
+            }
+        }
+        
+        createPetals();
+        
+        // Compte à rebours
+        const countdownInterval = setInterval(() => {
+            if (isChasing && timeLeft > 0) {
+                timeLeft--;
+                countdown.textContent = timeLeft;
+                
+                if (timeLeft === 0) {
+                    isChasing = false;
+                    button.textContent = 'Ok… je me rends 💕';
+                    button.classList.add('catchable');
+                    timer.textContent = 'Tu peux enfin me cliquer ! 😊';
+                    timer.style.color = '#90EE90';
+                }
+            }
+        }, 1000);
+        
+        // Déplacer le bouton pour fuir la souris
+        document.addEventListener('mousemove', (e) => {
+            if (!isChasing || buttonCaught) return;
+            
+            const rect = button.getBoundingClientRect();
+            const buttonX = rect.left + rect.width / 2;
+            const buttonY = rect.top + rect.height / 2;
+            
+            const deltaX = buttonX - e.clientX;
+            const deltaY = buttonY - e.clientY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            
+            if (distance < DETECTION_RADIUS) {
+                // Afficher un message fun
+                if (Math.random() < 0.3) {
+                    showFunMessage(e.clientX, e.clientY);
+                }
+                
+                // Calculer nouvelle position aléatoire sur TOUT l'écran
+                const margin = 80; // Marge de sécurité pour mobile
+                const maxX = window.innerWidth - button.offsetWidth - margin;
+                const maxY = window.innerHeight - button.offsetHeight - margin;
+                
+                let newX = margin + Math.random() * (maxX - margin);
+                let newY = margin + Math.random() * (maxY - margin);
+                
+                // S'assurer que le bouton est loin de la souris
+                const minDistance = 200;
+                const newDeltaX = newX - e.clientX;
+                const newDeltaY = newY - e.clientY;
+                const newDistance = Math.sqrt(newDeltaX * newDeltaX + newDeltaY * newDeltaY);
+                
+                // Si trop proche, repositionner à l'opposé
+                if (newDistance < minDistance) {
+                    newX = e.clientX < window.innerWidth / 2 ? maxX - margin : margin;
+                    newY = e.clientY < window.innerHeight / 2 ? maxY - margin : margin;
+                }
+                
+                // Animation fluide
+                button.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                button.style.left = newX + 'px';
+                button.style.top = newY + 'px';
+            }
+        });
+        
+        // Support tactile pour mobile
+        document.addEventListener('touchmove', (e) => {
+            if (!isChasing || buttonCaught) return;
+            
+            const touch = e.touches[0];
+            const rect = button.getBoundingClientRect();
+            const buttonX = rect.left + rect.width / 2;
+            const buttonY = rect.top + rect.height / 2;
+            
+            const deltaX = buttonX - touch.clientX;
+            const deltaY = buttonY - touch.clientY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            
+            if (distance < DETECTION_RADIUS + 50) { // Plus large pour tactile
+                // Afficher un message fun
+                if (Math.random() < 0.3) {
+                    showFunMessage(touch.clientX, touch.clientY);
+                }
+                
+                // Calculer nouvelle position aléatoire sur TOUT l'écran
+                const margin = 80;
+                const maxX = window.innerWidth - button.offsetWidth - margin;
+                const maxY = window.innerHeight - button.offsetHeight - margin;
+                
+                let newX = margin + Math.random() * (maxX - margin);
+                let newY = margin + Math.random() * (maxY - margin);
+                
+                // S'assurer que le bouton est loin du doigt
+                const minDistance = 250;
+                const newDeltaX = newX - touch.clientX;
+                const newDeltaY = newY - touch.clientY;
+                const newDistance = Math.sqrt(newDeltaX * newDeltaX + newDeltaY * newDeltaY);
+                
+                // Si trop proche, repositionner à l'opposé
+                if (newDistance < minDistance) {
+                    newX = touch.clientX < window.innerWidth / 2 ? maxX - margin : margin;
+                    newY = touch.clientY < window.innerHeight / 2 ? maxY - margin : margin;
+                }
+                
+                // Animation fluide
+                button.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                button.style.left = newX + 'px';
+                button.style.top = newY + 'px';
+            }
+        });
+        
+        // Afficher message fun
+        function showFunMessage(x, y) {
+            const message = document.createElement('div');
+            message.className = 'fun-message';
+            message.textContent = funMessages[messageIndex % funMessages.length];
+            message.style.left = x + 'px';
+            message.style.top = y + 'px';
+            document.body.appendChild(message);
+            
+            messageIndex++;
+            
+            setTimeout(() => message.remove(), 2000);
+        }
+        
+        // Cœurs qui suivent la souris
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.1) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-cursor';
+                heart.textContent = ['❤️', '💕', '💖', '💗', '💓'][Math.floor(Math.random() * 5)];
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
+        
+        // Cœurs qui suivent le doigt sur mobile
+        document.addEventListener('touchmove', (e) => {
+            if (Math.random() < 0.15) {
+                const touch = e.touches[0];
+                const heart = document.createElement('div');
+                heart.className = 'heart-cursor';
+                heart.textContent = ['❤️', '💕', '💖', '💗', '💓'][Math.floor(Math.random() * 5)];
+                heart.style.left = touch.clientX + 'px';
+                heart.style.top = touch.clientY + 'px';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
+        
+        // Clic sur le bouton
+        button.addEventListener('click', (e) => {
+            if (isChasing && timeLeft > 0) {
+                // Pendant la phase de poursuite, le bouton continue de fuir
+                e.preventDefault();
+                return;
+            }
+            
+            if (!buttonCaught) {
+                buttonCaught = true;
+                clearInterval(countdownInterval);
+                
+                // Masquer les éléments
+                document.querySelector('.container').style.display = 'none';
+                
+                // Afficher la célébration
+                celebration.classList.add('active');
+                
+                // Lancer les feux d'artifice
+                launchFireworks();
+                
+                // Lancer les confettis
+                launchConfetti();
+                
+                // Musique (simulée - remplacer par une vraie source audio)
+                // document.getElementById('bgMusic').play();
+            }
+        });
+        
+        // Feux d'artifice
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8
+                };
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+                this.size = Math.random() * 3 + 2;
+            }
+            
+            update() {
+                this.velocity.y += 0.1;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= this.decay;
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+        
+        let particles = [];
+        
+        function createFirework(x, y) {
+            const colors = ['#ff1493', '#ff69b4', '#ffc0cb', '#ff6b9d', '#ffffff', '#ffd700'];
+            const particleCount = 60;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particles.push(new Particle(x, y, color));
+            }
+        }
+        
+        function animateFireworks() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            particles = particles.filter(p => p.alpha > 0);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            requestAnimationFrame(animateFireworks);
+        }
+        
+        function launchFireworks() {
+            animateFireworks();
+            
+            let count = 0;
+            const fireworkInterval = setInterval(() => {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.5;
+                createFirework(x, y);
+                
+                count++;
+                if (count > 30) {
+                    clearInterval(fireworkInterval);
+                }
+            }, 300);
+        }
+        
+        // Confettis
+        function launchConfetti() {
+            const colors = ['#ff1493', '#ff69b4', '#ffc0cb', '#ffd700', '#87ceeb', '#90ee90'];
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 20);
+            }
+        }
+        
+        // Responsive
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            if (!buttonCaught && !isChasing) {
+                centerButton();
+            }
+        });
+    </script>
+</body>
+</html>
